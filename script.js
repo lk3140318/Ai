@@ -1,30 +1,37 @@
-const express = require('express');
-const multer = require('multer');
-const app = express();
-const PORT = process.env.PORT || 3000;
+// Load the JSON file with website data
+async function loadWebsiteData() {
+    const response = await fetch('data.json');
+    return await response.json();
+}
 
-const upload = multer({ dest: 'uploads/' });
+// Search function to find matching websites
+async function search() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const resultsDiv = document.getElementById('searchResults');
+    
+    // Clear previous results
+    resultsDiv.innerHTML = '';
 
-app.use(express.json());
-app.use(express.static('public')); // Serve static files from 'public' folder
+    if (!query) {
+        resultsDiv.innerHTML = '<p>Please enter a search term.</p>';
+        return;
+    }
 
-// Dummy search endpoint
-app.get('/search', (req, res) => {
-  const query = req.query.q;
-  // Simulated response based on the query
-  const results = [
-    { content: `Result for "${query}"`, image: 'path/to/image.jpg' }
-  ];
-  res.json(results);
-});
+    const websites = await loadWebsiteData();
+    const filteredResults = websites.filter(website => 
+        website.title.toLowerCase().includes(query) || 
+        website.category.toLowerCase().includes(query)
+    );
 
-// Upload endpoint
-app.post('/upload', upload.single('image'), (req, res) => {
-  console.log('Uploaded file:', req.file);
-  // Simulated response for uploaded image processing
-  res.json({ success: true, searchQuery: 'Processed image result' });
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+    // Display results
+    if (filteredResults.length > 0) {
+        filteredResults.forEach(result => {
+            const resultDiv = document.createElement('div');
+            resultDiv.classList.add('result');
+            resultDiv.innerHTML = `<a href="${result.url}" target="_blank">${result.title}</a> - ${result.category}`;
+            resultsDiv.appendChild(resultDiv);
+        });
+    } else {
+        resultsDiv.innerHTML = '<p>No results found.</p>';
+    }
+}
