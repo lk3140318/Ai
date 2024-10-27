@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Example Article Site",
+        "url": "https://example.com/article",
+        "category": "article"
+    },
+    {
+        "title": "Example Movie Site",
+        "url": "https://filmygallery.fit/",
+        "category": "movie"
+    },
+    {
+        "title": "Example Music Site",
+        "url": "https://example.com/music",
+        "category": "music"
+    },
+    {
+        "title": "Example Image Site",
+        "url": "https://example.com/image",
+        "category": "image"
+    }
+]
