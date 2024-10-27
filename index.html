@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Search Engine</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <img src="path/to/your/logo.png" alt="Logo" class="logo" /> <!-- Replace with your logo path -->
+    </header>
+
+    <div id="adsContainer" class="ads">
+      <!-- Ad content will be dynamically added here -->
+    </div>
+
+    <h1>Search Anything</h1>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="What are you looking for?" />
+      <select id="categorySelect">
+        <option value="">All Categories</option>
+        <option value="article">Articles</option>
+        <option value="movie">Movies</option>
+        <option value="music">Music</option>
+        <option value="image">Images</option>
+      </select>
+      <button onclick="search()">🔍 Search</button>
+      <input type="file" id="fileInput" accept="image/*" onchange="uploadImage()" />
+    </div>
+
+    <div id="searchResults" class="results"></div>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
